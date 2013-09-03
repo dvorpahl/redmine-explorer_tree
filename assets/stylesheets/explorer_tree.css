@@ -15,16 +15,16 @@ and open the template in the editor.
     padding-left: 1.3em;
     background-position: left 0.5em;
 }
-#projects-index li.root>div.root.open {
+#projects-index li.root>div.root.open, #projects-index li.root>div.root.close:hover {
     cursor: pointer;
     background-image: url(../images/explorer_open.png);
 }
-#projects-index li.root>div.root.close {
+#projects-index li.root>div.root.close, #projects-index li.root>div.root.open:hover {
     cursor: pointer;
     background-image: url(../images/explorer_close.png);
 }
 #projects-index li.root>ul.projects {
-    margin-left: 15px;
+    margin-left: 7px;
 }
 #projects-index ul.projects li.child, #projects-index li.root>ul.projects {
     margin-top:0;
@@ -33,7 +33,7 @@ and open the template in the editor.
     margin-top:1em;
 }
 #projects-index ul.projects ul.projects {
-    border-left: 2px solid #585858;
+    border-left: 1px solid #585858;
     overflow: hidden;
 }
 #projects-index {
