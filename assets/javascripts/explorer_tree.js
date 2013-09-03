@@ -15,7 +15,7 @@ $(function() {
         }
         else {
             elm.parent().find('li.child').slideUp();
-            elm.addClass('close').removeClass('close');
+            elm.addClass('close').removeClass('open');
         }
     };
 
