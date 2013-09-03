@@ -116,17 +116,13 @@ console.log(es);
 
                 if ($(e2).parent().find('ul').length > 0) {
                 console.log('ul>0');
-                if (typeof(expandState[i][i2]) !== "undefined") {
+                if (typeof(expandState[i][i2]) === "undefined") {
                     $(e2).addClass('close').hide();
-                    
                 }
                 else {
                     $(e2).addClass('open').removeClass('close');
                 }
-
-
-
-            }
+           }
 
         });
         }
