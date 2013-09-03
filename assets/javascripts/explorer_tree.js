@@ -105,7 +105,7 @@ $(function() {
         var childs = $(e).parent().children('ul.projects');
         if(childs.length>0) {
             $(e).addClass('close').bind('click',toggle);
-            $(childs).css({border:'1px solid red'});
+            //$(childs).css({border:'1px solid red'});
         }
         
     

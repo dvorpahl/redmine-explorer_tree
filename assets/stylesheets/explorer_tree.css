@@ -26,9 +26,8 @@ and open the template in the editor.
 
 #projects-index li.child>div.child {
     background-repeat: no-repeat;
-  
     padding-left: 1.3em;
-    background-position: left 0.5em;
+    background-position: left 0;
 }
 
 #projects-index li.child>div.child.open {
@@ -40,6 +39,7 @@ and open the template in the editor.
 
 #projects-index li.root>ul.projects {
     margin-left: 8px;
+    
 }
 #projects-index ul.projects li.child, #projects-index li.root>ul.projects {
     margin-top:0;
@@ -50,6 +50,8 @@ and open the template in the editor.
 #projects-index ul.projects ul.projects {
     border-left: 1px solid #585858;
     overflow: hidden;
+    padding-left: 0.6em;
+    margin-left: 8px;
 }
 #projects-index {
     min-height:320px;
