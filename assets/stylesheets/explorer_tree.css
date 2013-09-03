@@ -30,10 +30,11 @@ and open the template in the editor.
     margin-top:0;
 }
 #projects-index ul.projects li.child>div, #projects-index li.root>ul.projects>div {
-    margin-top:0;
+    margin-top:1em;
 }
 #projects-index ul.projects ul.projects {
     border-left: 2px solid #585858;
+    overflow: hidden;
 }
 #projects-index {
     min-height:320px;
