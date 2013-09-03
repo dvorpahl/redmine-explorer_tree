@@ -25,7 +25,8 @@ gethasedState = function() {
         var states = stateData.split('|');
         for (var i in states) {
             var state = states[i].split(',');
-            expandState[parseInt(state.shift())] = state;
+            console.log(state);
+            expandState[parseInt(state.shift())] = state || [];
         }
     }
 
@@ -104,25 +105,27 @@ toggle = function(e) {
 gethasedState();
 var es;
 $('#projects-index li.root>div.root').each(function(i, e) {
-    es = e;
-    console.log(es);
-    if ($(e).parent().children('ul.projects').length > 0) {
+
+    e = $(e);
+    if (e.parent().children('ul.projects').length > 0) {
 
         if (typeof(expandState[i]) !== "undefined") {
-            $(e).addClass('open').removeClass('close');
+            e.addClass('open').removeClass('close');
         }
-        else
-            $(e).removeClass('close').addClass('open');
+        else {
+            e.addClass('close').removeClass('open');
+            
+        }
 
-        $(e).parent().children('ul.projects').children('li.child').children('ul.projects').each(function(i2, e2) {
+        e.parent().children('ul.projects').children('li.child').children('ul.projects').each(function(i2, e2) {
             console.log(expandState, i, i2);
-
+e2=$(e2);
             if (typeof(expandState[i]) !== "undefined" && typeof(expandState[i][i2]) === "undefined") {
-                $(e2).hide();
-                $(e2).parent().children('div.child').addClass('close').removeClass('open');
+                e2.hide();
+                e2.parent().children('div.child').addClass('close').removeClass('open');
             }
             else {
-                $(e2).addClass('open').removeClass('close');
+                e.addClass('open').removeClass('close');
             }
 
         });
