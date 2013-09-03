@@ -13,6 +13,7 @@ $(function() {
             t = elm;
             console.log('opening',t);
             elm.removeClass('close').addClass('open', function() {
+                console.log(elm);
                 elm.parent().find('li.child').slideDown('fast');
             });
         }
@@ -31,5 +32,5 @@ $(function() {
         }
     });
     $('#projects-index li.root>div.root.close').parent().find('li.child').hide();
-    $('#projects-index li.root>div.root.close').click(toggle);
+    $('#projects-index li.root>div.root.close').bind('click',toggle);
 });
