@@ -5,7 +5,7 @@
  */
 
 /* dvl */
-
+var es;
 
 $(function() {
 
@@ -19,8 +19,8 @@ $(function() {
         var stateData, m;
         var fallback = window.sessionStorage.getItem('explorer_tree');
         var hashState = window.location.hash;
-        
-        
+
+
         m = p.exec(hashState) || p.exec(fallback);
         if (m !== null && (stateData = ((m[1]).substr(0, (m[1]).length - 1).substr(1))) !== "")
         {
@@ -51,23 +51,27 @@ $(function() {
 
     toggle = function(e) {
         var elm = $(e.srcElement);
+        e.stopPropagation();
         var idx = $('#projects-index li.root>div.root').index(elm);
 
         if (elm.hasClass('close')) {
             expandState[idx] = [];
             //elm.parent().find('>li.child').slideDown('fast');
-            var childs = elm.parent().children('ul.projects');
-            elm.removeClass('close').addClass('open');
-
-
-            childs.each(function(i, v) {
-                $(v).delay(i * 200).slideDown(250);
+            var childs = elm.parent().children('ul.projects').slideDown(200,function(){
+                elm.removeClass('close').addClass('open');
             });
+            
+
+            //childs.each(function(i, v) {
+//                $(v).delay(i * 200).slideDown(250);
+//            });
         }
         else {
             delete expandState[idx];
-            elm.parent().children('ul.projects').stop().slideUp();
-            elm.addClass('close').removeClass('open');
+            elm.parent().children('ul.projects').stop().slideUp(300, function(){
+                elm.addClass('close').removeClass('open');
+            });
+            
         }
         puthasedState();
     };
@@ -93,5 +97,17 @@ $(function() {
         $(e).hide();
         //}
     });
+    
+    // root elements
     $('#projects-index li.root>div.root.close, #projects-index li.root>div.root.open').bind('click', toggle);
+    // child elements
+    $('#projects-index li.child>div.child').each(function(i,e) {
+        var childs = $(e).parent().children('ul.projects');
+        if(childs.length>0) {
+            $(e).addClass('close').bind('click',toggle);
+            $(childs).css({border:'1px solid red'});
+        }
+        
+    
+    });
 });
