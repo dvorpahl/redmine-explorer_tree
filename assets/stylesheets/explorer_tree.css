@@ -88,3 +88,11 @@ and open the template in the editor.
 #projects-index ul.projects ul.projects {
     
 }
+
+.wiki.description p:last-child{
+    border-bottom: lightgray 1px;
+margin-left: -0.6em;
+padding-left: 0.6em;
+border-bottom-style: dashed;
+padding-bottom: 0.2em;
+}
