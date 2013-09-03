@@ -60,16 +60,16 @@ toggle = function(e) {
     if (idx < 0)
         idx = $('#projects-index li.root').index(elm.parent().parent().parent())
 
-    var subidx = $('#projects-index li.root>ul.projects>li.child>div.child').index(elm);
+    var subidx = $('#projects-index li.root>ul.projects>li.child>div.child').index(elm)-1;
     if (elm.hasClass('close')) {
+        console.log('isClosed');
         if (idx >= 0) {
             if (subidx >= 0) {
-                console.log(idx);
-                console.log('subidx', --subidx);
-                expandState[idx][subidx] = "ja";
+                console.log('idx =',idx,' subidx=',subidx);
+                expandState[idx][subidx] = true;
             }
             else {
-                console.log('no subidx idx', idx);
+                console.log('idx =',idx,' no subidx');
                 expandState[idx] = expandStateRoot[idx] || [];
             }
         }
@@ -80,11 +80,14 @@ toggle = function(e) {
         });
     }
     else {
+        console.log('isOpen');
         if (idx >= 0) {
             if (subidx >= 0) {
+                console.log('idx =',idx,' subidx=',subidx);
                 delete expandState[idx][subidx];
             }
             else {
+                console.log('idx =',idx,' no subidx');
                 expandStateRoot[idx] = expandState[idx];
                 delete expandState[idx];
             }
