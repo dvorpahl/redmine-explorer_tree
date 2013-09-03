@@ -11,7 +11,7 @@ and open the template in the editor.
 /* dvl */
 #projects-index li.root>div.root {
     background-repeat: no-repeat;
-  
+
     padding-left: 1.3em;
     background-position: left 0.5em;
 }
@@ -31,18 +31,18 @@ and open the template in the editor.
 }
 
 #projects-index li.child>div.child.open {
-        cursor: pointer;
+    cursor: pointer;
     background-image: url(../images/explorer_open.png);
 }
 #projects-index li.child>div.child.close {
-        cursor: pointer;
+    cursor: pointer;
     background-image: url(../images/explorer_close.png);
 }
 
 
 #projects-index li.root>ul.projects {
     margin-left: 8px;
-    
+
 }
 #projects-index ul.projects li.child, #projects-index li.root>ul.projects {
     margin-top:0;
@@ -64,7 +64,7 @@ and open the template in the editor.
     /*margin-left:-4px;*/
     padding-left: 0;
     padding-right: 1em;
-    
+
     padding-right: 0.86em;
     background-size: 0.9em;
     background-position: right 3px;
@@ -86,13 +86,25 @@ and open the template in the editor.
 
 }
 #projects-index ul.projects ul.projects {
-    
+
 }
+#projects-index li.child>div.child.open .wiki.description {
+    border-left: 1px solid #585858;
+    padding-left: 0.6em;
+    margin-left: -0.6em;
+}
+#projects-index li.child>div.child.close .wiki.description {
+    border-left: 1px dashed #585858;
+    padding-left: 0.6em;
+    margin-left: -0.6em;
+}
+
 
 .wiki.description p:last-child{
     border-bottom: lightgray 1px;
-margin-left: -0.6em;
-padding-left: 0.6em;
-border-bottom-style: dashed;
-padding-bottom: 0.2em;
+    margin-left: -0.6em;
+    padding-left: 0.6em;
+    border-bottom-style: dashed;
+    padding-bottom: 0.2em;
+    margin-bottom: 0;
 }
