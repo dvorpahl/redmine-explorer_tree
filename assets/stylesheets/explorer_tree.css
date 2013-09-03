@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 03.09.2013, 10:31:37
+    Author     : dvorpahl
+*/
+
+/* dvl */
+#projects-index li.root>div.root {
+    background-repeat: no-repeat;
+  
+    padding-left: 1.3em;
+    background-position: left 0.5em;
+}
+#projects-index li.root>div.root.open {
+    cursor: pointer;
+    background-image: url(/redmine/images/explorer_open.png);
+}
+#projects-index li.root>div.root.close {
+    cursor: pointer;
+    background-image: url(/redmine/images/explorer_close.png);
+}
+#projects-index li.root>ul.projects {
+    margin-left: 15px;
+}
+#projects-index ul.projects ul.projects {
+    border-left: 2px solid #585858;
+}
+#projects-index {
+    min-height:320px;
+}
+
+#projects-index ul.projects div.root a.project.my-project {
+    /*margin-left:-4px;*/
+    padding-left: 0;
+    padding-right: 1em;
+    
+    padding-right: 0.86em;
+    background-size: 0.9em;
+    background-position: right 3px;
+}
+.my-project {
+
+    /* margin-left:-4px;
+    padding-left: 18px;
+    
+    padding-left: 0;
+    padding-right: 1em;
+    background-position: right 3px;
+    background-size:10px;
+    */
+    padding-left: 0;
+    background-position: right top;
+    background-size: 1.2em;
+    padding-right: 1.2em;
+
+}
+#projects-index ul.projects ul.projects {
+    
+}
