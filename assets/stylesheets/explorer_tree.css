@@ -108,6 +108,8 @@ and open the template in the editor.
     padding-bottom: 0.2em;
     margin-bottom: 0;
 }
+/*
+ *
 ul.projects li.child div.child:before {
 content: '';
 margin: 0;
@@ -123,3 +125,4 @@ margin-bottom: -7px;
 border-bottom: 1px solid #585858;
 
 }
+*/
