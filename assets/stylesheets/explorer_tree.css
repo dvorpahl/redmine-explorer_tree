@@ -109,16 +109,17 @@ and open the template in the editor.
     margin-bottom: 0;
 }
 ul.projects li.child div.child:before {
-    content: '<p class="anchor"></p>';
-}
-p.anchor {
-    margin: 0;
+content: '';
+margin: 0;
 padding: 0;
-width: 0.5em;
-border-top: 1px solid red;
-position: absolute;
+width: 0.7em;
+height: 7px;
+position: relative;
 margin-top: 0.7em;
-margin-left: -0.6em;
-padding-left: 8px;
+margin-left: -2em;
+padding-left: 0px;
 display: block;
+margin-bottom: -7px;
+border-bottom: 1px solid #585858;
+
 }
