@@ -14,8 +14,8 @@ $(function() {
             });
         }
         else {
-            elm.parent().find('.child').slideUp();
-            elm.addClass('close');
+            elm.parent().find('li.child').slideUp();
+            elm.addClass('close').removeClass('close');
         }
     };
 
