@@ -9,11 +9,12 @@ $(function() {
     toggle = function(e) {
         var elm = $(e.srcElement);
         if (elm.hasClass('close')) {
-            elm.parent().find('li.child').slideDown('fast');
+            //elm.parent().find('>li.child').slideDown('fast');
+            elm.parent().children('ul.projects').childreen('li.child').slideDown();
             elm.removeClass('close').addClass('open');
         }
         else {
-            elm.parent().find('li.child').slideUp();
+            elm.parent().children('ul.projects').childreen('li.child').slideUp();
             elm.addClass('close').removeClass('open');
         }
     };
