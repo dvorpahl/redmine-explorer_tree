@@ -117,7 +117,7 @@ $('#projects-index li.root>div.root').each(function(i, e) {
         $(e).parent().children('ul.projects').children('li.child').children('ul.projects').each(function(i2, e2) {
             console.log(expandState, i, i2);
 
-            if (typeof(expandState[i][i2]) === "undefined") {
+            if (typeof(expandState[i]) !== "undefined" && typeof(expandState[i][i2]) === "undefined") {
                 $(e2).hide();
                 $(e2).parent().children('div.child').addClass('close').removeClass('open');
             }
