@@ -60,16 +60,16 @@ toggle = function(e) {
     if (idx < 0)
         idx = $('#projects-index li.root').index(elm.parent().parent().parent())
 
-    var subidx = $('#projects-index li.root>ul.projects>li.child>div.child').index(elm)-1;
+    var subidx = $('#projects-index li.root>ul.projects>li.child>div.child').index(elm) - 1;
     if (elm.hasClass('close')) {
         console.log('isClosed');
         if (idx >= 0) {
             if (subidx >= 0) {
-                console.log('idx =',idx,' subidx=',subidx);
+                console.log('idx =', idx, ' subidx=', subidx);
                 expandState[idx][subidx] = true;
             }
             else {
-                console.log('idx =',idx,' no subidx');
+                console.log('idx =', idx, ' no subidx');
                 expandState[idx] = expandStateRoot[idx] || [];
             }
         }
@@ -83,11 +83,11 @@ toggle = function(e) {
         console.log('isOpen');
         if (idx >= 0) {
             if (subidx >= 0) {
-                console.log('idx =',idx,' subidx=',subidx);
+                console.log('idx =', idx, ' subidx=', subidx);
                 delete expandState[idx][subidx];
             }
             else {
-                console.log('idx =',idx,' no subidx');
+                console.log('idx =', idx, ' no subidx');
                 expandStateRoot[idx] = expandState[idx];
                 delete expandState[idx];
             }
@@ -104,33 +104,29 @@ toggle = function(e) {
 gethasedState();
 var es;
 $('#projects-index li.root>div.root').each(function(i, e) {
-    es=e;
-console.log(es);
-    if ($(e).parent().find('ul').length > 0) {
-        
+    es = e;
+    console.log(es);
+    if ($(e).parent().children('ul.projects').length > 0) {
+
         if (typeof(expandState[i]) !== "undefined") {
             $(e).addClass('open').removeClass('close');
-            
-            $(e).parent().children('ul.projects').children('ul.projects').each(function(i2, e2) {
-            console.log(expandState, i, i2);
-
-                if ($(e2).parent().find('ul').length > 0) {
-                console.log('ul>0');
-                if (typeof(expandState[i][i2]) === "undefined") {
-                    $(e2).addClass('close').hide();
-                }
-                else {
-                    $(e2).addClass('open').removeClass('close');
-                }
-           }
-
-        });
         }
         else
             $(e).removeClass('close').addClass('open');
 
-        console.log(e);
-        
+        $(e).parent().children('ul.projects').children('li.child').children('ul.projects').each(function(i2, e2) {
+            console.log(expandState, i, i2);
+
+            if (typeof(expandState[i][i2]) === "undefined") {
+                $(e2).hide();
+                $(e2).parent().children('div.child').addClass('close').removeClass('open');
+            }
+            else {
+                $(e2).addClass('open').removeClass('close');
+            }
+
+        });
+
     }
 });
 
