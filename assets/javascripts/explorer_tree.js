@@ -5,15 +5,20 @@
  */
 
 /* dvl */
+var t,z;
 $(function() {
     toggle = function(e) {
         var elm = $(e.srcElement);
         if (elm.hasClass('close')) {
+            t = elm;
+            console.log('opening',t);
             elm.removeClass('close').addClass('open', function() {
                 elm.parent().find('li.child').slideDown('fast');
             });
         }
         else {
+            z = elm;
+            console.log('closing',z)
             elm.parent().find('li.child').slideUp();
             elm.addClass('close').removeClass('open');
         }
