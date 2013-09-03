@@ -17,11 +17,11 @@ and open the template in the editor.
 }
 #projects-index li.root>div.root.open {
     cursor: pointer;
-    background-image: url(/redmine/images/explorer_open.png);
+    background-image: url(../images/explorer_open.png);
 }
 #projects-index li.root>div.root.close {
     cursor: pointer;
-    background-image: url(/redmine/images/explorer_close.png);
+    background-image: url(../images/explorer_close.png);
 }
 #projects-index li.root>ul.projects {
     margin-left: 15px;
