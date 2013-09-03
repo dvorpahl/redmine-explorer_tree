@@ -104,8 +104,7 @@ $(function() {
     $('#projects-index li.child>div.child').each(function(i,e) {
         var childs = $(e).parent().children('ul.projects');
         if(childs.length>0) {
-            $(e).addClass('close').bind('click',toggle);
-            //$(childs).css({border:'1px solid red'});
+            $(e).addClass('open').bind('click',toggle);
         }
         
     

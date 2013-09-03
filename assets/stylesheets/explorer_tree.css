@@ -34,7 +34,10 @@ and open the template in the editor.
         cursor: pointer;
     background-image: url(../images/explorer_open.png);
 }
-
+#projects-index li.child>div.child.close {
+        cursor: pointer;
+    background-image: url(../images/explorer_close.png);
+}
 
 
 #projects-index li.root>ul.projects {
