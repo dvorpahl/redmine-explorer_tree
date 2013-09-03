@@ -5,26 +5,93 @@
  */
 
 /* dvl */
+
+
 $(function() {
+
+    $('#projects-index li.root>div.root.close').unbind('click');
+    $('#projects-index li.root>div.root.close').parent().find('li').show();
+
+    var expandState = [];
+    var p = new RegExp('\\?et(\\[.*?\\])', ["i"]);
+
+    gethasedState = function() {
+        var stateData, m;
+        var fallback = window.sessionStorage.getItem('explorer_tree');
+        var hashState = window.location.hash;
+        
+        
+        m = p.exec(hashState) || p.exec(fallback);
+        if (m !== null && (stateData = ((m[1]).substr(0, (m[1]).length - 1).substr(1))) !== "")
+        {
+            var states = stateData.split('|');
+            for (var i in states) {
+                var state = states[i].split(',');
+                expandState[parseInt(state.shift())] = state;
+            }
+        }
+        return expandState;
+    };
+
+    puthasedState = function() {
+
+        var hashState = "";
+        for (var key in expandState) {
+            hashState += "|" + key;
+            for (var state in expandState[key]) {
+                hashState += ',' + expandState[key][state];
+            }
+        }
+        if (hashState.length > 1)
+            hashState = '?et[' + hashState.substr(1) + ']';
+
+        window.location.hash = (window.location.hash).replace(p, '') + hashState;
+        window.sessionStorage.setItem('explorer_tree', hashState);
+    };
+
     toggle = function(e) {
         var elm = $(e.srcElement);
+        var idx = $('#projects-index li.root>div.root').index(elm);
+
         if (elm.hasClass('close')) {
+            expandState[idx] = [];
             //elm.parent().find('>li.child').slideDown('fast');
-            elm.parent().children('ul.projects').children('li.child').slideDown();
+            var childs = elm.parent().children('ul.projects');
             elm.removeClass('close').addClass('open');
+
+
+            childs.each(function(i, v) {
+                $(v).delay(i * 200).slideDown(250);
+            });
         }
         else {
-            elm.parent().children('ul.projects').children('li.child').slideUp();
+            delete expandState[idx];
+            elm.parent().children('ul.projects').stop().slideUp();
             elm.addClass('close').removeClass('open');
         }
+        puthasedState();
     };
 
     // init
-    $('#projects-index li.root>div.root').each(function(e) {
+    gethasedState();
+
+    $('#projects-index li.root>div.root').each(function(i, e) {
+
         if ($(this).parent().find('ul').length > 0) {
-            $(this).removeClass('open').addClass('close');
+            if (typeof(expandState[i]) !== "undefined") {
+                $(this).addClass('open').removeClass('close');
+            }
+            else
+                $(this).removeClass('open').addClass('close');
+
         }
     });
-    $('#projects-index li.root>div.root.close').parent().children('ul.projects').children('li.child').hide();
-    $('#projects-index li.root>div.root.close').bind('click',toggle);
+    $('#projects-index li.root>div.root.close').parent().children('ul.projects').each(function(i, e) {
+        //hide()
+        //console.log(i);
+        //if (typeof(expandState[i]) !== "undefined") {
+        $(e).hide();
+        //}
+    });
+    $('#projects-index li.root>div.root.close, #projects-index li.root>div.root.open').bind('click', toggle);
 });
