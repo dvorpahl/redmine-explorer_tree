@@ -10,7 +10,7 @@ $(function() {
         var elm = $(e.srcElement);
         if (elm.hasClass('close')) {
             elm.removeClass('close').addClass('open', function() {
-                elm.parent().find('.child').slideDown('fast');
+                elm.parent().find('li.child').slideDown('fast');
             });
         }
         else {
@@ -25,6 +25,6 @@ $(function() {
             $(this).removeClass('open').addClass('close');
         }
     });
-    $('#projects-index li.root>div.root.close').parent().find('.child').hide();
+    $('#projects-index li.root>div.root.close').parent().find('li.child').hide();
     $('#projects-index li.root>div.root.close').click(toggle);
 });
