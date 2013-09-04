@@ -167,7 +167,7 @@
 
         tree.identity = function() {
             helper.getItems().each(function(i, item){
-                if($(item).next('ul.projects')) {
+                if($(item).next('ul.projects').length>0) {
                     var hexId = helper.genIdentity(item);
                     eStates["_"+hexId] = false;
                     $(item).attr('data-id', hexId);
