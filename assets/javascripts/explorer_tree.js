@@ -3,11 +3,30 @@
  * → http://www.plastart.de
  * → danilo.vorpahl@gmail.com
  *
-/*
-    Created on : 03.09.2013, 10:31:37
-    Author     : dvorpahl
+/*                                      /*
+//  Created on : 03.09.2013, 10:31:37   /*
+//  Author     : dvorpahl               /*
+*/
 
- *
+
+/* prototypes ----------------------------------------------------------------*/
+/**
+ * Array Function -> clean
+ * @param {type} deleteValue
+ * @returns {Array.prototype}
+ */
+Array.prototype.clean = function(deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === deleteValue) {         
+      this.splice(i, 1);
+      i--;
+    }
+  }
+  return this;
+};
+
+/**
+ * anonymous is golden :O
  * @param {type} window
  * @returns {undefined}
  */
@@ -18,8 +37,12 @@
     var URLUPDATE = true;
 
     var urlHashPattern = new RegExp('\\?et(\\[.*?\\])', ["i"]);
-    var eStates = [];
+    var eStates = [],
+        eItems = [];
 
+    if (DEBUG) {
+        console.log('Redmine Plugin: "'+PLUGIN+'"'+"\n---");
+    }
     /**
      * urlHash
      * @type type
@@ -34,7 +57,6 @@
             var m, foundMatch; //matches
                 m = urlHashPattern.exec(window.location.hash) ||
                     urlHashPattern.exec(window.sessionStorage.getItem(PLUGIN));
-            if (DEBUG) console.log(m);
 
             if (m !== null && (foundMatch = ((m[1]).substr(0, (m[1]).length - 1).substr(1))) !== "") {
                 var aStates = foundMatch.split(',');
@@ -63,9 +85,8 @@
 
         urlHash.puthashState = function(hashString) {
             if (DEBUG) console.log('puthashState()');
-            if(URLUPDATE) window.location.hash = (window.location.hash).replace(urlHashPattern, '') + hashString;
+            if (URLUPDATE) window.location.hash = (window.location.hash).replace(urlHashPattern, '') + hashString;
             window.sessionStorage.setItem(PLUGIN, hashString);
-
             return true;
         };
 
@@ -77,22 +98,21 @@
     var helper = {};
     
         helper.getItems = function() {
-            return $('#projects-index li.root>div.root, #projects-index li.child>div.child');
-        };
-
-/*        helper.finder = function(elm) {
-            var subidx, idx = $('#projects-index li.root>div.root').index($(elm));
-            if (idx < 0) {
-                idx = $('#projects-index li.root').index($(elm).parent().parent().parent());
-                var root = $('#projects-index li.root>div.root').get(idx);
-                subidx = $(root).parent().children('ul.projects').children('li.child').index($(elm).parent());
-
-                if (DEBUG) console.log('sub element (' + subidx + ') of root-idx = ', idx);
-
+            if(eItems.length > 0) {
+                return eItems;
             }
-            else if (DEBUG) console.log('root element root-idx = ', idx);
+            var items = $('#projects-index li.root>div.root, #projects-index li.child>div.child');
+            if (DEBUG) console.log('getItems() found '+items.length+' elements');
+            items.each(function(i,v) {
+                if($(v).next('ul.projects').length===0) delete items[i];
+            });
+
+            eItems = $(items.toArray().clean(undefined));
+            if (DEBUG) console.log('getItems(): '+eItems.length+' usable');
+            
+            return eItems;
         };
-*/    
+
         helper.sdbm = function(str) {
             var hash = 0, char;
             for (var i = 0; i < str.length; i++) {
@@ -185,19 +205,18 @@
             }
 
             helper.getItems().each(function(i, item) {
-
-            if ($(item).next('ul.projects').length > 0) {
-                var hexId = $(item).attr('data-id');
-                if (eStates['_' + hexId] === false) {
-                    $(item).next().hide();
-                    $(item).addClass('close');
+                
+                if ($(item).next('ul.projects').length > 0) {
+                    var hexId = $(item).attr('data-id');
+                    if (eStates['_' + hexId] === false) {
+                        $(item).next().hide();
+                        $(item).addClass('close');
+                    }
+                    else {
+                        $(item).addClass('open');
+                    }
                 }
-                else {
-                    $(item).addClass('open');
-                }
-            }
-
-        });
+            });
         };
     
 
