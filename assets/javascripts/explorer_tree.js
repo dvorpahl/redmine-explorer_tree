@@ -184,16 +184,20 @@
                 }
             }
 
-            helper.getItems().each(function(i, item){
+            helper.getItems().each(function(i, item) {
+
+            if ($(item).next('ul.projects').length > 0) {
                 var hexId = $(item).attr('data-id');
-                if(eStates['_'+hexId] === false) {
+                if (eStates['_' + hexId] === false) {
                     $(item).next().hide();
                     $(item).addClass('close');
                 }
                 else {
                     $(item).addClass('open');
                 }
-            });
+            }
+
+        });
         };
     
 
