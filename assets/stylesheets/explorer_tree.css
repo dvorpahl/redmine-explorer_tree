@@ -1,14 +1,14 @@
+/**
+ * (C)2013 plastΆгե network
+ * → http://www.plastart.de
+ * → danilo.vorpahl@gmail.com
+ *
 /*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
     Created on : 03.09.2013, 10:31:37
     Author     : dvorpahl
-*/
 
-/* dvl */
+ */
+
 #projects-index li.root>div.root {
     background-repeat: no-repeat;
 
@@ -37,8 +37,6 @@ and open the template in the editor.
 #projects-index li.child>div.child.close {
     cursor: pointer;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAQCAMAAAD6fQULAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADNQTFRF/Pz86enp8fHxmZmZpqamjo6O4eHhxMTE19fX6+vrgICA5OTk6Ojo6urq5+fnpaWl////tTJ62wAAABF0Uk5T/////////////////////wAlrZliAAAAOUlEQVR42mIQQAYMhHjsTMg8fhZGZB4fMxsSj4GRlQOJx8DNxYng8SLL8aDoQzET1T7i3QkHAAEGACaAC9gJxgT8AAAAAElFTkSuQmCC');
-
-
 }
 
 
@@ -111,21 +109,20 @@ and open the template in the editor.
     padding-bottom: 0.2em;
     margin-bottom: 0;
 }
-/*
- *
-ul.projects li.child div.child:before {
-content: '';
-margin: 0;
-padding: 0;
-width: 0.7em;
-height: 7px;
-position: relative;
-margin-top: 0.7em;
-margin-left: -2em;
-padding-left: 0px;
-display: block;
-margin-bottom: -7px;
-border-bottom: 1px solid #585858;
 
+/*
+ul.projects li.child div.child:before {
+    content: '';
+    margin: 0;
+    padding: 0;
+    width: 0.7em;
+    height: 7px;
+    position: relative;
+    margin-top: 0.7em;
+    margin-left: -2em;
+    padding-left: 0px;
+    display: block;
+    margin-bottom: -7px;
+    border-bottom: 1px solid #585858;
 }
 */

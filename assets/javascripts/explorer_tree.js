@@ -1,158 +1,205 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * (C)2013 plastΆгե network
+ * → http://www.plastart.de
+ * → danilo.vorpahl@gmail.com
+ *
+/*
+    Created on : 03.09.2013, 10:31:37
+    Author     : dvorpahl
+
+ *
+ * @param {type} window
+ * @returns {undefined}
  */
+(function(window) {
 
-/* dvl */
-$(function() {
+    var PLUGIN = "explorer_tree";
+    var DEBUG = false;
+    var URLUPDATE = true;
 
-//$('#projects-index li.root>div.root.close').unbind('click');
-//$('#projects-index li.root>div.root.close').parent().find('li').show();
+    var urlHashPattern = new RegExp('\\?et(\\[.*?\\])', ["i"]);
+    var eStates = [];
 
-var expandState = [], expandStateRoot = [];
-var p = new RegExp('\\?et(\\[.*?\\])', ["i"]);
+    /**
+     * urlHash
+     * @type type
+     * -----------------------------------------------------------------------------
+     */
+    var urlHash = {};
 
-gethasedState = function() {
-    var stateData, m;
-    var fallback = window.sessionStorage.getItem('explorer_tree');
-    var hashState = window.location.hash;
+        urlHash.gethashedState = function() {
+            if (DEBUG) console.log('gethashedState()');
+            var current = [];
 
+            var m, foundMatch; //matches
+                m = urlHashPattern.exec(window.location.hash) ||
+                    urlHashPattern.exec(window.sessionStorage.getItem(PLUGIN));
+            if (DEBUG) console.log(m);
 
-    m = p.exec(hashState) || p.exec(fallback);
-    if (m !== null && (stateData = ((m[1]).substr(0, (m[1]).length - 1).substr(1))) !== "")
-    {
-        var states = stateData.split('|');
-        for (var i in states) {
-            var state = states[i].split(',');
-            var nstate = [];
-            for(var w in state) {
-                if (w>0)
-                    nstate[parseInt(state[w])] = true;
+            if (m !== null && (foundMatch = ((m[1]).substr(0, (m[1]).length - 1).substr(1))) !== "") {
+                var aStates = foundMatch.split(',');
+                for (var i in aStates) {
+                    current['_'+aStates[i]] = true;
+                }
             }
-            expandState[parseInt(state.shift())] = nstate || [];
-        }
-    }
+            if (DEBUG) console.log(current);
+            return current;
+        };
 
-    var restoreState = function(expands) {
+        urlHash.createhashString = function(current) {
+            if (DEBUG) console.log('createhashString()');
+            var hashString = "";
 
-    };
-
-    restoreState(expandState)
-    return expandState;
-};
-
-puthasedState = function() {
-
-    var hashState = "";
-    for (var key in expandState) {
-        hashState += "|" + key;
-        for (var state in expandState[key]) {
-            hashState += ',' + state;
-        }
-    }
-    if (hashState.length > 1)
-        hashState = '?et[' + hashState.substr(1) + ']';
-
-    window.location.hash = (window.location.hash).replace(p, '') + hashState;
-    window.sessionStorage.setItem('explorer_tree', hashState);
-};
-
-toggle = function(e) {
-    var elm = $(e.srcElement);
-    e.stopPropagation();
-    var idx = $('#projects-index li.root>div.root').index(elm);
-    if (idx < 0)
-        idx = $('#projects-index li.root').index(elm.parent().parent().parent())
-
-    var subidx = $('#projects-index li.root>ul.projects>li.child>div.child').index(elm) - 1;
-    if (elm.hasClass('close')) {
-        if (idx >= 0) {
-            if (subidx >= 0) {
-                expandState[idx][subidx] = true;
+            for (var k in current) {
+                if(current[k] === true)
+                hashString += "," + k.substr(1);
             }
-            else {
-                expandState[idx] = expandStateRoot[idx] || [];
+            if (hashString.length > 1)
+                hashString = '?et[' + hashString.substr(1) + ']';
+
+            if (DEBUG) console.log(hashString);
+            return hashString;
+        };
+
+        urlHash.puthashState = function(hashString) {
+            if (DEBUG) console.log('puthashState()');
+            if(URLUPDATE) window.location.hash = (window.location.hash).replace(urlHashPattern, '') + hashString;
+            window.sessionStorage.setItem(PLUGIN, hashString);
+
+            return true;
+        };
+
+    /**
+     * helper
+     * @type type
+     * -----------------------------------------------------------------------------
+     */
+    var helper = {};
+    
+        helper.getItems = function() {
+            return $('#projects-index li.root>div.root, #projects-index li.child>div.child');
+        };
+
+/*        helper.finder = function(elm) {
+            var subidx, idx = $('#projects-index li.root>div.root').index($(elm));
+            if (idx < 0) {
+                idx = $('#projects-index li.root').index($(elm).parent().parent().parent());
+                var root = $('#projects-index li.root>div.root').get(idx);
+                subidx = $(root).parent().children('ul.projects').children('li.child').index($(elm).parent());
+
+                if (DEBUG) console.log('sub element (' + subidx + ') of root-idx = ', idx);
+
             }
-        }
-        //elm.parent().find('>li.child').slideDown('fast');
-        var childs = elm.parent().children('ul.projects').slideDown(200, function() {
-            elm.removeClass('close').addClass('open');
-            elm.parent().parent().css('');
-        });
-    }
-    else {
-        if (idx >= 0) {
-            if (subidx >= 0) {
-                delete expandState[idx][subidx];
+            else if (DEBUG) console.log('root element root-idx = ', idx);
+        };
+*/    
+        helper.sdbm = function(str) {
+            var hash = 0, char;
+            for (var i = 0; i < str.length; i++) {
+                char = str.charCodeAt(i);
+                hash = char + (hash << 6) + (hash << 16) - hash;
             }
-            else {
-                expandStateRoot[idx] = expandState[idx];
-                delete expandState[idx];
+            return hash;
+        };
+
+        helper.hash = function(str){
+          return str.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a;},0);              
+        };
+
+        helper.genIdentity = function(elm) {
+            var href = $(elm).children('a').attr('href');
+            var identity = helper.hash(href);
+            var hexId = (identity < 0 ? (0xFFFFFFFF + identity + 1) : identity).toString(16);
+            if (DEBUG) console.log('genIdentity('+hexId+')',href);
+            return hexId;
+        };
+        
+    /**
+     * tree
+     * @type type
+     * -----------------------------------------------------------------------------
+     */
+    var tree = {};
+    
+        tree.eventHandler = function(event) {
+            if (DEBUG) console.log('toggle()', event);
+            if (DEBUG) console.log('target =', event.target);
+
+            // little helper to find eventElement
+            function getTarget(objEvent) {
+                var targ, e = objEvent;
+                if (e.target) targ = e.target;                   // most browsers
+                else if (e.srcElement) targ = e.srcElement;      // internet explorer
+                if (targ.nodeType === 3) targ = targ.parentNode; // defeat safari bug
+                return targ;
             }
-        }
 
-        elm.parent().children('ul.projects').stop().slideUp(300, function() {
-            elm.addClass('close').removeClass('open');
-        });
-    }
-    puthasedState();
-};
-
-// init
-gethasedState();
-$('#projects-index li.root>div.root').each(function(i, e) {
-    e = $(e);
-    if (e.parent().children('ul.projects').length > 0) {
-
-        if (typeof(expandState[i]) !== "undefined") {
-            e.addClass('open').removeClass('close');
-        }
-        else {
-            e.addClass('close').removeClass('open');
-            e.parent().children('ul.projects').hide();
-        }
-
-        e.parent().children('ul.projects').children('li.child').children('ul.projects').each(function(i2, e2) {
-            e2 = $(e2);
+            if(tree.toggle(getTarget(event))) {
+                
+            };
             
-            if (typeof(expandState[i]) !== "undefined" && typeof(expandState[i][e.parent().children('ul.projects').children('li.child').index(e2.parent())]) !== "undefined") {
-                e.addClass('open').removeClass('close');
+            event.stopPropagation();
+        };
+
+        tree.toggle = function(elm) {
+
+            var containers = $(elm).parent().children('ul.projects');
+            var hexId = $(elm).attr('data-id');
+            
+            if($(elm).hasClass('close')) {
+                containers.slideDown(200, function() {
+                    $(elm).removeClass('close').addClass('open');
+                    eStates['_'+hexId] = true;
+                    urlHash.puthashState(urlHash.createhashString(eStates));
+                });
+                return true;
             }
             else {
-                e2.hide();
-                e2.parent().children('div.child').addClass('close').removeClass('open');
+                containers.stop().slideUp(300, function() {
+                    $(elm).removeClass('open').addClass('close');
+                    eStates['_'+hexId] = false;
+                    urlHash.puthashState(urlHash.createhashString(eStates));
+                });
+                return true;
+            }
+            return false;
+        };
+
+        tree.identity = function() {
+            helper.getItems().each(function(i, item){
+                if($(item).next('ul.projects')) {
+                    var hexId = helper.genIdentity(item);
+                    eStates["_"+hexId] = false;
+                    $(item).attr('data-id', hexId);
+                }
+            });
+        };
+    
+        tree.restore = function() {
+            var states = urlHash.gethashedState();
+
+            for (var k in states) {
+                if (eStates.hasOwnProperty(k)) {
+                    eStates[k] = true;
+                }
             }
 
-        });
+            helper.getItems().each(function(i, item){
+                var hexId = $(item).attr('data-id');
+                if(eStates['_'+hexId] === false) {
+                    $(item).next().hide();
+                    $(item).addClass('close');
+                }
+                else {
+                    $(item).addClass('open');
+                }
+            });
+        };
+    
 
-    }
-});
+    // init --------------------------------------------------------------------
+    tree.identity();
+    tree.restore();
+    helper.getItems().bind('click', tree.eventHandler);
 
-/*$('#projects-index li.root>div.root').parent().children('ul.projects').each(function(i, e) {
- 
- if ($(this).parent().find('ul').length > 0) {
- if (typeof(expandState[i]) !== "undefined") {
- $(this).addClass('open').removeClass('close');
- }
- else
- $(this).removeClass('open').addClass('close');
- 
- }
- //hide()
- //console.log(i);
- //if (typeof(expandState[i]) !== "undefined") {
- $(e).hide();
- //}
- });
- */
-// root elements
-$('#projects-index li.root>div.root.close, #projects-index li.root>div.root.open').bind('click', toggle);
-// child elements
-$('#projects-index li.child>div.child').each(function(i, e) {
-    var childs = $(e).parent().children('ul.projects');
-    if (childs.length > 0) {
-        $(e).addClass('open').bind('click', toggle);
-    }
-});
-});
+})(this);
