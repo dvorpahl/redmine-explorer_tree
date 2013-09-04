@@ -5,10 +5,10 @@
  */
 
 /* dvl */
-//$(function() {
+$(function() {
 
-$('#projects-index li.root>div.root.close').unbind('click');
-$('#projects-index li.root>div.root.close').parent().find('li').show();
+//$('#projects-index li.root>div.root.close').unbind('click');
+//$('#projects-index li.root>div.root.close').parent().find('li').show();
 
 var expandState = [], expandStateRoot = [];
 var p = new RegExp('\\?et(\\[.*?\\])', ["i"]);
@@ -26,7 +26,12 @@ gethasedState = function() {
         for (var i in states) {
             var state = states[i].split(',');
             console.log(state);
-            expandState[parseInt(state.shift())] = state || [];
+            var nstate = [];
+            for(var w in state) {
+                if (w>0)
+                    nstate[parseInt(state[w])] = true;
+            }
+            expandState[parseInt(state.shift())] = nstate || [];
         }
     }
 
@@ -103,9 +108,7 @@ toggle = function(e) {
 
 // init
 gethasedState();
-var es;
 $('#projects-index li.root>div.root').each(function(i, e) {
-
     e = $(e);
     if (e.parent().children('ul.projects').length > 0) {
 
@@ -114,18 +117,18 @@ $('#projects-index li.root>div.root').each(function(i, e) {
         }
         else {
             e.addClass('close').removeClass('open');
-            
+            e.parent().children('ul.projects').hide();
         }
 
         e.parent().children('ul.projects').children('li.child').children('ul.projects').each(function(i2, e2) {
-            console.log(expandState, i, i2);
-e2=$(e2);
-            if (typeof(expandState[i]) !== "undefined" && typeof(expandState[i][i2]) === "undefined") {
-                e2.hide();
-                e2.parent().children('div.child').addClass('close').removeClass('open');
+            e2 = $(e2);
+            
+            if (typeof(expandState[i]) !== "undefined" && typeof(expandState[i][e.parent().children('ul.projects').children('li.child').index(e2.parent())]) !== "undefined") {
+                e.addClass('open').removeClass('close');
             }
             else {
-                e.addClass('open').removeClass('close');
+                e2.hide();
+                e2.parent().children('div.child').addClass('close').removeClass('open');
             }
 
         });
@@ -159,4 +162,4 @@ $('#projects-index li.child>div.child').each(function(i, e) {
         $(e).addClass('open').bind('click', toggle);
     }
 });
-//});
+});
