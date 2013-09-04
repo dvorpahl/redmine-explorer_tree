@@ -17,11 +17,11 @@ and open the template in the editor.
 }
 #projects-index li.root>div.root.open, #projects-index li.root>div.root.close:hover {
     cursor: pointer;
-    background-image: url(../images/explorer_open.png);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAQCAMAAAD6fQULAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFKioqu7u7WFhYWVlZiIiIhoaGvb29JiYm////amfUUgAAAAl0Uk5T//////////8AU094EgAAAC9JREFUeNpi4EAGDBTy2FiQeIwM7AgeIwMTggfkMMN5IA6Cx8IOBKzUcAsEAAQYAKkaBg89LFoXAAAAAElFTkSuQmCC');
 }
 #projects-index li.root>div.root.close, #projects-index li.root>div.root.open:hover {
     cursor: pointer;
-    background-image: url(../images/explorer_close.png);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAQCAMAAAD6fQULAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADNQTFRF/Pz86enp8fHxmZmZpqamjo6O4eHhxMTE19fX6+vrgICA5OTk6Ojo6urq5+fnpaWl////tTJ62wAAABF0Uk5T/////////////////////wAlrZliAAAAOUlEQVR42mIQQAYMhHjsTMg8fhZGZB4fMxsSj4GRlQOJx8DNxYng8SLL8aDoQzET1T7i3QkHAAEGACaAC9gJxgT8AAAAAElFTkSuQmCC');
 }
 
 #projects-index li.child>div.child {
@@ -32,12 +32,15 @@ and open the template in the editor.
 
 #projects-index li.child>div.child.open {
     cursor: pointer;
-    background-image: url(../images/explorer_open.png);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAQCAMAAAD6fQULAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFKioqu7u7WFhYWVlZiIiIhoaGvb29JiYm////amfUUgAAAAl0Uk5T//////////8AU094EgAAAC9JREFUeNpi4EAGDBTy2FiQeIwM7AgeIwMTggfkMMN5IA6Cx8IOBKzUcAsEAAQYAKkaBg89LFoXAAAAAElFTkSuQmCC');
 }
 #projects-index li.child>div.child.close {
     cursor: pointer;
-    background-image: url(../images/explorer_close.png);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAQCAMAAAD6fQULAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADNQTFRF/Pz86enp8fHxmZmZpqamjo6O4eHhxMTE19fX6+vrgICA5OTk6Ojo6urq5+fnpaWl////tTJ62wAAABF0Uk5T/////////////////////wAlrZliAAAAOUlEQVR42mIQQAYMhHjsTMg8fhZGZB4fMxsSj4GRlQOJx8DNxYng8SLL8aDoQzET1T7i3QkHAAEGACaAC9gJxgT8AAAAAElFTkSuQmCC');
+
+
 }
+
 
 
 #projects-index li.root>ul.projects {

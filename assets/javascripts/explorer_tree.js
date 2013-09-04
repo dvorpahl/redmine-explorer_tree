@@ -25,7 +25,6 @@ gethasedState = function() {
         var states = stateData.split('|');
         for (var i in states) {
             var state = states[i].split(',');
-            console.log(state);
             var nstate = [];
             for(var w in state) {
                 if (w>0)
@@ -68,14 +67,11 @@ toggle = function(e) {
 
     var subidx = $('#projects-index li.root>ul.projects>li.child>div.child').index(elm) - 1;
     if (elm.hasClass('close')) {
-        console.log('isClosed');
         if (idx >= 0) {
             if (subidx >= 0) {
-                console.log('idx =', idx, ' subidx=', subidx);
                 expandState[idx][subidx] = true;
             }
             else {
-                console.log('idx =', idx, ' no subidx');
                 expandState[idx] = expandStateRoot[idx] || [];
             }
         }
@@ -86,14 +82,11 @@ toggle = function(e) {
         });
     }
     else {
-        console.log('isOpen');
         if (idx >= 0) {
             if (subidx >= 0) {
-                console.log('idx =', idx, ' subidx=', subidx);
                 delete expandState[idx][subidx];
             }
             else {
-                console.log('idx =', idx, ' no subidx');
                 expandStateRoot[idx] = expandState[idx];
                 delete expandState[idx];
             }
